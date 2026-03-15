@@ -109,6 +109,7 @@
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
+				F14A7C8D9E0B1C2D3E4F5A60 /* Sync package version */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */,
 				E235C05ADACE081382539298 /* [CP] Copy Pods Resources */,
@@ -237,6 +238,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NovaShell/Pods-NovaShell-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F14A7C8D9E0B1C2D3E4F5A60 /* Sync package version */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(PROJECT_DIR)/../package.json",
+			);
+			name = "Sync package version";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -eu\n\nPACKAGE_JSON=\"${PROJECT_DIR}/../package.json\"\nPACKAGE_VERSION=$(/usr/bin/plutil -extract ios_version raw -o - \"$PACKAGE_JSON\" 2>/dev/null || /usr/bin/plutil -extract version raw -o - \"$PACKAGE_JSON\")\nPACKAGE_BUILD_NUMBER=$(/usr/bin/plutil -extract android_version_code raw -o - \"$PACKAGE_JSON\" 2>/dev/null || echo \"1\")\n\n/usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString $PACKAGE_VERSION\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $PACKAGE_BUILD_NUMBER\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
